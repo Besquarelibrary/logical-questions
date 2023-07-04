@@ -1,0 +1,146 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include <ctype.h>
+
+bool validateEmployeeName(const char* name) {
+    for (int i = 0; name[i] != '\0'; i++) {
+        if (!isalpha(name[i])) {
+            return false;
+        }
+    }
+    return true;
+}
+
+bool validateEmployeeID(int id) {
+    if (id <= 0) {
+        return false;
+    }
+    else 
+    {
+        return true;
+    }
+}
+
+bool validateEmployeeDesignation(const char* name) {
+    for(int i = 0; name[i] != '\0'; i++) {
+        if (!isalpha(name[i])) {
+            return false;
+        }
+    }
+    return true;
+}
+
+bool validateEmployeeJoiningDate(const char* joining_date) {
+    int day, month, year;
+    sscanf(joining_date, "%d/%d/%d", &day, &month, &year);
+
+    // Validate day
+    if (day < 1 || day > 31) {
+        return false;
+    }
+
+    // Validate month
+    if (month < 1 || month > 12) {
+        return false;
+    }
+
+    // Validate year (e.g., consider a reasonable range)
+    if (year < 0 || year > 99) {
+        return false;
+    }
+
+    return true;
+}
+
+int main() {
+    struct node {
+        char employee_name[100];
+        int  employee_id;
+        char employee_designation[100];
+        char employee_joining_date[100];
+        struct node* next;
+    };
+
+    struct node* head, * newnode, * temp;
+    head = 0;
+    char choice;
+
+    do {
+        newnode = (struct node*)malloc(sizeof(struct node));
+
+        while (1) {
+            printf("Enter the employee_name: ");
+            if (scanf("%s", newnode->employee_name) == 1) {
+                if (validateEmployeeName(newnode->employee_name)) {
+                    break;
+                } else {
+                    // Clear the input buffer
+                    while (getchar() != '\n');
+                    printf("Invalid input format. Please enter a valid employee name.\n");
+                }
+            }
+        }
+
+        while (1) {
+            printf("Enter the employee_id: ");
+            if (scanf("%d", &newnode->employee_id) == 1) {
+                if (validateEmployeeID(newnode->employee_id)) {
+                    break;
+                }
+                printf("Invalid employee ID. Please enter a positive number.\n");
+            } else {
+                // Clear the input buffer
+                printf("Invalid input format. Please enter a valid employee ID.\n");
+            }
+            while (getchar() != '\n');
+        }
+
+        while (1) {
+            printf("Enter the employee_designation: ");
+            if (scanf("%99s", newnode->employee_designation) == 1) {
+                if (validateEmployeeDesignation(newnode->employee_designation)) {
+                    break;
+                } else {
+                    while (getchar() != '\n');
+                    printf("Invalid input format. Please enter a valid employee designation.\n");
+                }
+            }
+        }
+
+        while (1) {
+            printf("Enter the employee_joining_date (DD/MM/YYYY): ");
+            if (scanf("%99s", newnode->employee_joining_date) == 1) {
+                if (validateEmployeeJoiningDate(newnode->employee_joining_date)) {
+                    break;
+                } else {
+                    while (getchar() != '\n');
+                    printf("Invalid input format. Please enter a valid employee joining date.\n");
+                }
+            }
+        }
+
+        newnode->next = 0;
+        if (head == 0) {
+            head = temp = newnode;
+        } else {
+            temp->next = newnode;
+            temp = newnode;
+        }
+
+        printf("Do you want to enter again? (Y/N): ");
+        scanf(" %c", &choice);
+        while (getchar() != '\n');
+    } while (choice == 'Y' || choice == 'y');
+
+    temp = head;
+    while (temp != 0) {
+        printf("%s ", temp->employee_name);
+        printf("%d ", temp->employee_id);
+        printf("%s ", temp->employee_designation);
+        printf("%s ", temp->employee_joining_date);
+        temp = temp->next;
+    }
+
+    return 0;
+}
