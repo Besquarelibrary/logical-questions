@@ -1,0 +1,11 @@
+                                CPP Interview Questions 
+
+1)What is a variable in C++?
+2)Explain the concept of data types in C++
+3)What is the difference between automatic and static variables in C++?
+4)How do you declare a constant variable in C++?
+5)What are the arithmetic operators in C++?
+6)Explain the difference between prefix and postfix increment operators (++i and i++) in C++
+7)How do you determine the size of a data type in C++?
+8)What are the logical operators in C++?
+9)How does the ternary operator (conditional operator) work in C++?
